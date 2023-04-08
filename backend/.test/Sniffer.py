@@ -79,6 +79,7 @@ def capture_tcp_packets(ip_address, port):
         message = message+binary_string
         index_l = index_u+1
         index_u = index_u+1
+    n = len(message)
     print("message len:",n)
     while n>8 and n%8!=0:
        print("inloop",n)
@@ -99,7 +100,7 @@ def capture_tcp_packets(ip_address, port):
     
     print("Final bits",message)
     #Writing to file
-    f = open("msg.txt", "w")
+    f = open(".test/msg.txt", "w")
     f.write(bytes_data.decode('utf-8'))
     print("Message Received")
 
