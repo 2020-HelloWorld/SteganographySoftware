@@ -21,5 +21,5 @@ while True:
 	client_socket, client_address = server_socket.accept()
 	print('Connection from ', client_address, ' established.')
 	print(client_address[0])
-	Sniffer.capture_tcp_packets(client_address[0], 1234)
+	k=Sniffer.capture_tcp_packets(client_address[0],1234)
 	break

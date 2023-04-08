@@ -21,7 +21,8 @@ def capture_tcp_packets(ip_address, port):
     def store_packet(packet):
         #print("Sniffing")
         nonlocal connection_open
-        if packet[TCP].payload:
+        print(packet[TCP].flags)
+        if 'PA' == str(packet[TCP].flags):
             #print(packet[TCP].flags)
             # Extract TCP sequence number and packet arrival time
             seq_num = packet[TCP].seq
@@ -33,7 +34,8 @@ def capture_tcp_packets(ip_address, port):
             print("len:", len(packets))
 
         # Check for the TCP FIN flag to detect when the connection is closed
-        elif 'F' in packet[TCP].flags:
+        
+        elif 'FA' == str(packet[TCP].flags):
             # Set the flag variable to False to stop capturing packets
             print("FIN")
             connection_open = False
@@ -79,7 +81,8 @@ def capture_tcp_packets(ip_address, port):
         message = message+binary_string
         index_l = index_u+1
         index_u = index_u+1
-    n = len(message)
+    
+    n=len(message)
     print("message len:",n)
     while n>8 and n%8!=0:
        print("inloop",n)
@@ -100,7 +103,7 @@ def capture_tcp_packets(ip_address, port):
     
     print("Final bits",message)
     #Writing to file
-    f = open(".test/msg.txt", "w")
+    f = open("msg.txt", "w")
     f.write(bytes_data.decode('utf-8'))
     print("Message Received")
 
