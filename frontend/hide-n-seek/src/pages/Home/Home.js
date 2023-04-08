@@ -16,6 +16,7 @@ function Home() {
 
 
   return (
+    <div class='form-cover'>
     <div className={`container ${isActive ? "right-panel-active" : ""}`} id="qwerty">
       <div className="form-container sign-up-container">
         <form>
@@ -56,6 +57,7 @@ function Home() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

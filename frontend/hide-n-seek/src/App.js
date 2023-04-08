@@ -10,15 +10,12 @@ import {Routes , Route,useNavigate} from "react-router-dom";
 
 function App() {
   return (
-    <>
-    <div className='container'>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/local' element={<Local/>} />
         <Route path='/communicate' element={<Communicate />} />
         <Route path='/localupload' element={<LocalUpload />} />
       </Routes>
-    </div></>
   );
 }
 
