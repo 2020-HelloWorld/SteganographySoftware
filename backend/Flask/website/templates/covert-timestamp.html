@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Encoding/Decoding</title>
+    <link rel="stylesheet" href="static/covert-dash.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="section sending-section">
+        <h1>File Encoding</h1>
+        <form>
+          <div class="form-group">
+            <label for="receiver-ip">Receiver IP:</label>
+            <input type="text" id="receiver-ip" name="receiver-ip" placeholder="Enter receiver IP address">
+          </div>
+          <div class="form-group">
+            <label for="host-file">Host File:</label>
+            <input type="file" id="host-file" name="host-file">
+          </div>
+          <div class="form-group">
+            <label for="secret-data">Secret Data:</label>
+            <textarea id="secret-data" name="secret-data" rows="5"></textarea>
+          </div>
+          <button type="submit" class="submit-button">Start Sending</button>
+        </form>
+      </div>
+      <div class="section receiving-section">
+        <h1>File Decoding</h1>
+        <form>
+          <div class="form-group">
+            <label for="receive-button">&nbsp;</label>
+            <button id="receive-button" type="button">Start Receiving</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
