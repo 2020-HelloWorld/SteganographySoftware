@@ -1,17 +1,21 @@
 # wave module comes with standard python installation
 import wave
-"""
-*<[only supports wave files]>*
-This module helps us in performing audio stenography
-on wave files as they are lossless audio files.
-link -  https://tinyurl.com/yy3sx6ku
-"""
+from os import path
+from pydub import AudioSegment
 
+temp = "FileSteganography/assets/result.wav"
 
 def embed(infile: str, message: str, outfile: str):
-    # TODO add password functionality preferably using encryption
-    """This takes your message and hides it in infile and saves it in outfile"""
-    song = wave.open(infile, mode='rb')
+    # convert mp3 file to wav file
+    try:
+        sound = AudioSegment.from_mp3(infile)
+    except Exception as e:
+        print(e)
+        return
+    
+    sound.export(temp, format="wav")
+
+    song = wave.open(temp, mode='rb')
     # Read frames and convert to byte array
     frame_bytes = bytearray(list(song.readframes(song.getnframes())))
 
@@ -30,7 +34,6 @@ def embed(infile: str, message: str, outfile: str):
         fd.setparams(song.getparams())
         fd.writeframes(frame_modified)
     song.close()
-    # db.format_oth('aud', outfile)
 
 
 def extract(file: str):
@@ -46,3 +49,21 @@ def extract(file: str):
     decoded = message.split("###")[0]
     song.close()
     return decoded
+
+# Main Function
+def main():
+    a = int(input(":: Welcome to Steganography ::\n1. Encode\n2. Decode\n"))
+    if (a == 1):
+        host = input("Enter audio file name(with extension) : ")
+        secret = input("Enter data to be encoded : ")
+        output = input("Enter the name of new audio(with extension) : ")
+        embed(host,secret,output)
+    elif (a == 2):
+        host = input("Enter audio file name(with extension) : ")
+        print("Decoded Word : " + extract())
+    else:
+        raise Exception("Enter correct input")
+
+# Driver Code
+if __name__ == '__main__' :   
+    main()
