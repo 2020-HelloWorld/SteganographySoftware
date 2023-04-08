@@ -3,19 +3,13 @@ import wave
 from os import path
 from pydub import AudioSegment
 
-temp = "FileSteganography/assets/result.wav"
+def convert(infile,outfile):
+    sound = AudioSegment.from_mp3(infile)
+    sound.export(outfile, format="wav")
 
 def embed(infile: str, message: str, outfile: str):
     # convert mp3 file to wav file
-    try:
-        sound = AudioSegment.from_mp3(infile)
-    except Exception as e:
-        print(e)
-        return
-    
-    sound.export(temp, format="wav")
-
-    song = wave.open(temp, mode='rb')
+    song = wave.open(infile, mode='rb')
     # Read frames and convert to byte array
     frame_bytes = bytearray(list(song.readframes(song.getnframes())))
 
@@ -60,7 +54,7 @@ def main():
         embed(host,secret,output)
     elif (a == 2):
         host = input("Enter audio file name(with extension) : ")
-        print("Decoded Word : " + extract())
+        print("Decoded Word : " + extract(host))
     else:
         raise Exception("Enter correct input")
 
