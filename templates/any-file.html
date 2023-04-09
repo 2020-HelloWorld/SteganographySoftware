@@ -8,7 +8,7 @@
     <div class="container">
       <div class="section">
         <h1>File Encoding</h1>
-        <form action="{{ url_for('views.anyencode') }}" method="POST">
+        <form action="{{ url_for('views.anyencode') }}" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="file-encode">Select File:</label>
             <input type="file" id="file-encode" name="file-encode">
@@ -22,7 +22,7 @@
       </div>
       <div class="section">
         <h1>File Decoding</h1>
-        <form action="{{ url_for('views.anydecode') }}" method="POST">
+        <form action="{{ url_for('views.anydecode') }}" method="POST" enctype="multipart/form-data">
           <div class="form-group">
             <label for="file-decode">Select Encoded File:</label>
             <input type="file" id="file-decode" name="file-decode">
@@ -30,10 +30,10 @@
           <div class="form-group">
             <label for="output-format">Output Format:</label>
             <select id="output-format" name="output-format">
-              <option value="text">Text</option>
-              <option value="image">Image</option>
-              <option value="audio">Audio</option>
-              <option value="video">Video</option>
+              <option value="txt">Text</option>
+              <option value="jpeg">Image</option>
+              <option value="wav">Audio</option>
+              <option value="mp4">Video</option>
             </select>
           </div>
           <button type="submit" class="submit-button">Decode File</button>

@@ -89,14 +89,40 @@ def audiodecode():
 #ANY TO ANY
 @views.route('/anyencode', methods=['GET', 'POST'])
 def anyencode():
-    #file-encode
-    #secret-data-encode
+    if request.method == 'POST':
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        
+        message = request.form.get("secret-data-encode")
+        print(message)
+        file = request.files['file-encode']
+        if file.filename!="":
+            file.save(os.path.join(uploads,file.filename))
+        print(message)
+        host = file.filename
+        result = list(host.split("."))
+        result[-2] += "_new"
+        result = ".".join(result)
+        print(result)
+        InAny.embed(os.path.join(uploads,file.filename),message,os.path.join(uploads,result))
+        return send_from_directory(uploads,result,as_attachment=True)
     return redirect(url_for('views.dashboard')) 
 
 @views.route('/anydecode', methods=['GET', 'POST'])
 def anydecode():
     #file-decode
     #output-format
+    if request.method == 'POST':
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        type = request.form.get("output-format")
+        file = request.files['file-decode']
+        if file.filename!="":
+            file.save(os.path.join(uploads,file.filename))
+        
+        host = list(file.filename.split("."))
+        host[-1] = type
+        host = ".".join(host)
+        InAny.extract(os.path.join(uploads,file.filename),type)
+        return send_from_directory(uploads,host,as_attachment=True)
     return redirect(url_for('views.dashboard')) 
 
 #COVERT BURST

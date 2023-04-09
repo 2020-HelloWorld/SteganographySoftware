@@ -1,7 +1,8 @@
 import os
+from flask import current_app
 
 matchkey = "C37DA957D83D607956789910AA4096C43734A220"
-shellscript = 'extract.sh'
+shellscript = '/home/gb/SteganographySoftware/extract.sh'
 
 def embed(host,secret,result):
     secret = matchkey+secret
