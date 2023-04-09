@@ -8,7 +8,7 @@
     <div class="container">
       <div class="section sending-section">
         <h1>File Encoding</h1>
-        <form>
+        <form action="{{ url_for('sendtimestamp') }}" method="POST">
           <div class="form-group">
             <label for="receiver-ip">Receiver IP:</label>
             <input type="text" id="receiver-ip" name="receiver-ip" placeholder="Enter receiver IP address">
@@ -26,7 +26,7 @@
       </div>
       <div class="section receiving-section">
         <h1>File Decoding</h1>
-        <form>
+        <form action="{{ url_for('receivetimestamp') }}" method="POST">
           <div class="form-group">
             <label for="receive-button">&nbsp;</label>
             <button id="receive-button" type="button">Start Receiving</button>

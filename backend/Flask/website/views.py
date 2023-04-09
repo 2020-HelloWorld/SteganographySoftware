@@ -2,35 +2,73 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 
 views = Blueprint('views', __name__)
 
-#FUNTIONAL ROUTES
+#FUNTIONAL ROUTES 
+#MULTIPLE ROUTES FROM SAME PAGE : https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms
+#FILE HANDLING : https://stackoverflow.com/questions/46136478/flask-upload-how-to-get-file-name#:~:text=Once%20you%20fetch%20the%20actual,filename%20.
+
+#TEXT TO IMG
+@views.route('/imageencode', methods=['GET', 'POST'])
+def imageencode():
+    #file-encode
+    #secret-key-encode
+    pass 
+
+@views.route('/imagedecode', methods=['GET', 'POST'])
+def imageencode():
+    #file-decode
+    pass 
+
+#TEXT TO AUDIO
+@views.route('/audioencode', methods=['GET', 'POST'])
+def audioencode():
+    #file-encode
+    #secret-key-encode
+    pass 
+
+@views.route('/audiodecode', methods=['GET', 'POST'])
+def audiodecode():
+    #file-decode
+    pass 
+
+#ANY TO ANY
+@views.route('/anyencode', methods=['GET', 'POST'])
+def anyencode():
+    #file-encode
+    #secret-data-encode
+    pass 
+
+@views.route('/anydecode', methods=['GET', 'POST'])
+def anydecode():
+    #file-decode
+    #output-format
+    pass 
+
+#COVERT BURST
+@views.route('/sendburst', methods=['GET', 'POST'])
+def sendburst():
+    #receiver-ip
+    #host-file
+    #secret-data
+    pass 
+
+@views.route('/receiveburst', methods=['GET', 'POST'])
+def receiveburst():
+    pass 
+
+#COVERT TIMESTAMP
+@views.route('/sendtimestamp', methods=['GET', 'POST'])
+def sendtimestamp():
+    #receiver-ip
+    #host-file
+    #secret-data
+    pass 
+
+@views.route('/receivetimestamp', methods=['GET', 'POST'])
+def receivetimestamp():
+    pass 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#------------------------------------------------------------------------------------#
 
 
 # NON-FUNTIONAL ROUTES
