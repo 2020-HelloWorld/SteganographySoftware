@@ -52,7 +52,7 @@ def capture_tcp_packets(ip_address, port):
 
     # Initialize the AgglomerativeClustering model
     agg_clustering = AgglomerativeClustering(
-        n_clusters=None, linkage='ward', distance_threshold=5)  # increase threshold if bitsplit increases
+        n_clusters=None, linkage='ward', distance_threshold=6)  # increase threshold if bitsplit increases
 
     # Fit the model to the data
     agg_clustering.fit(X)
@@ -101,8 +101,8 @@ def capture_tcp_packets(ip_address, port):
 
     print("Final bits", message)
     # Writing to file
-    f = open("msg.txt", "w")
+    f = open("/home/gb/SteganographySoftware/uploads/msg.txt", "w")
     f.write(bytes_data.decode('utf-8'))
     print("Message Received")
 
-    return df
+    return 'msg.txt'

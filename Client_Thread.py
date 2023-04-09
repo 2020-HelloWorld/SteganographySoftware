@@ -1,22 +1,21 @@
 import socket
 from scapy.all import *
-SERVER_IP = '172.16.129.4'
+
+
 SERVER_PORT = 1234
 MAX_PAYLOAD = 10  # BYTES
 BIT_SPLIT = 4
 MAX_PACKETS = 2**4-2
 
 
-# create a TCP/IP socket
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+def burstclient(SERVER_IP,secret):
+    # create a TCP/IP socket
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# set the IP address and port number of the server
-server_address = (SERVER_IP, 1234)
+    # set the IP address and port number of the server
+    server_address = (SERVER_IP, 1234)
 
-print('Connecting to {server_address}...')
-
-
-def method2():
+    print('Connecting to {server_address}...')
     # connect to the server
     try:
         client_socket.connect(server_address)
@@ -25,10 +24,13 @@ def method2():
         print("Connection failed:", e)
         return
     i = 0
-    with open('tosend.txt', 'rb') as f:
-        file_bytes = bytearray(f.read())
-        bits = ''.join(format(byte, '08b') for byte in file_bytes)
-        print(bits)
+    # with open("tosend.txt","rb") as f:
+    #     file_bytes = bytearray(f.read())
+    #     bits = ''.join(format(byte, '08b') for byte in file_bytes)
+    #     print(bits)
+    file_bytes = bytearray(bytes(secret, encoding='utf8'))
+    bits = ''.join(format(byte, '08b') for byte in file_bytes)
+    print(bits)
     n = len(bits)
     print("datalen:", n)
     # to make it divisible by BIT_SPLIT
@@ -62,11 +64,11 @@ def method2():
             g += numOfPackets
 
             for p in range(numOfPackets):
-                time.sleep(0.1)
+                time.sleep(0.2)
 
                 client_socket.sendall(enc)
             print("No.of packets sent:", g)
-            time.sleep(5)
+            time.sleep(6)
 
             i = i+j
             print(i)
@@ -80,8 +82,5 @@ def method2():
         print(e)
         return
 
-
-# finally:
-#     # close the socket
-#     client_socket.close()
-method2()
+if __name__=="__main__":
+    burstclient('172.16.128.155',"xx")

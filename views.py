@@ -14,6 +14,8 @@ views = Blueprint('views', __name__)
 import InAny    #embed #extract
 import InAudio  #embed #extract
 import InImage  #encode #decode
+import Client_Thread
+import Server_Thread
 
 
 #FUNTIONAL ROUTES 
@@ -131,10 +133,26 @@ def sendburst():
     #receiver-ip
     #host-file
     #secret-data
+    if request.method == 'POST':
+        message = request.form.get("secret-data")
+        ip = request.form.get("receiver-ip")
+        print(ip,message)
+        # try:
+        Client_Thread.burstclient(ip,message)
+        # except Exception as e: 
+        #     print("SERVER DOWN",e)
+
     return redirect(url_for('views.dashboard')) 
 
 @views.route('/receiveburst', methods=['GET', 'POST'])
 def receiveburst():
+    if request.method=='POST':
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        try:
+            file = Server_Thread.burstserver()
+            return send_from_directory(uploads,file,as_attachment=True)
+        except:
+            print("DATA CORRUPTED IN TRANSIT")
     return redirect(url_for('views.dashboard')) 
 
 #COVERT TIMESTAMP
