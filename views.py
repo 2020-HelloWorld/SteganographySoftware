@@ -146,13 +146,13 @@ def sendburst():
 
 @views.route('/receiveburst', methods=['GET', 'POST'])
 def receiveburst():
-    if request.method=='POST':
-        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
-        try:
-            file = Server_Thread.burstserver()
-            return send_from_directory(uploads,file,as_attachment=True)
-        except:
-            print("DATA CORRUPTED IN TRANSIT")
+    
+    uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+    try:
+        file = Server_Thread.burstserver()
+        return send_from_directory(uploads,file,as_attachment=True)
+    except:
+        print("DATA CORRUPTED IN TRANSIT")
     return redirect(url_for('views.dashboard')) 
 
 #COVERT TIMESTAMP
