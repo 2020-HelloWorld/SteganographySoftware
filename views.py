@@ -1,34 +1,90 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
-
+from flask import Blueprint, render_template, request, flash, redirect, url_for, send_from_directory, current_app
+import os
 views = Blueprint('views', __name__)
 
-#FUNTIONAL ROUTES 
+
 #MULTIPLE ROUTES FROM SAME PAGE : https://stackoverflow.com/questions/18290142/multiple-forms-in-a-single-page-using-flask-and-wtforms
 #FILE HANDLING : https://stackoverflow.com/questions/46136478/flask-upload-how-to-get-file-name#:~:text=Once%20you%20fetch%20the%20actual,filename%20.
+#DOWNLOAD FILE : https://stackoverflow.com/questions/24577349/flask-download-a-file
+#PASS ARG TO REDIRECT : https://stackoverflow.com/questions/17057191/redirect-while-passing-arguments
+#FORM FILE UPLOAD : https://www.w3schools.com/tags/att_form_enctype.asp
+#CURRENT APP : https://www.fullstackpython.com/flask-globals-current-app-examples.html
+#FULL PATH : https://www.geeksforgeeks.org/python-os-path-join-method/
+
+import InAny    #embed #extract
+import InAudio  #embed #extract
+import InImage  #encode #decode
+
+
+#FUNTIONAL ROUTES 
 
 #TEXT TO IMG
 @views.route('/imageencode', methods=['GET', 'POST'])
 def imageencode():
     #file-encode
     #secret-key-encode
+    if request.method == 'POST':
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        
+        message = request.form.get("secret-key-encode")
+        file = request.files['file-encode']
+        if file.filename!="":
+            file.save(os.path.join(uploads,file.filename))
+        
+        host = file.filename
+        result = list(host.split("."))
+        result[-2] += "(new)"
+        result = ".".join(result)
+        InImage.encode(os.path.join(uploads,file.filename),message,os.path.join(uploads,result))
+        return send_from_directory(uploads,result,as_attachment=True)
     return redirect(url_for('views.dashboard'))
 
 @views.route('/imagedecode', methods=['GET', 'POST'])
 def imagedecode():
     #file-decode
-    return redirect(url_for('views.dashboard')) 
+    if request.method=="POST":
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        file = request.files['file-decode']
+        if file.filename!="":
+            file.save(os.path.join(uploads,file.filename))
+        
+        data = InImage.decode(os.path.join(uploads,file.filename))
+        print(data)
+    return redirect(url_for('views.endpage',data=data)) 
 
 #TEXT TO AUDIO
 @views.route('/audioencode', methods=['GET', 'POST'])
 def audioencode():
     #file-encode
     #secret-key-encode
+    if request.method == 'POST':
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        
+        message = request.form.get("secret-key-encode")
+        file = request.files['file-encode']
+        if file.filename!="":
+            file.save(os.path.join(uploads,file.filename))
+        
+        host = file.filename
+        result = list(host.split("."))
+        result[-2] += "(new)"
+        result = ".".join(result)
+        InAudio.embed(os.path.join(uploads,file.filename),message,os.path.join(uploads,result))
+        return send_from_directory(uploads,result,as_attachment=True)
     return redirect(url_for('views.dashboard')) 
 
 @views.route('/audiodecode', methods=['GET', 'POST'])
 def audiodecode():
     #file-decode
-    return redirect(url_for('views.dashboard')) 
+    if request.method=="POST":
+        uploads = os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'])
+        file = request.files['file-decode']
+        if file.filename!="":
+            file.save(os.path.join(uploads,file.filename))
+        
+        data = InAudio.extract(os.path.join(uploads,file.filename))
+        print(data)
+    return redirect(url_for('views.endpage',data=data)) 
 
 #ANY TO ANY
 @views.route('/anyencode', methods=['GET', 'POST'])
@@ -114,3 +170,12 @@ def texttoimg():
 @views.route('/texttoaudio', methods=['GET', 'POST'])
 def texttoaudio():
     return render_template("text-to-audio.html")
+
+#--- OUTPUT
+@views.route('/endpage/<data>', methods=['GET', 'POST'])
+def endpage(data):
+    return render_template("output.html",secret_output=data)
+
+@views.route('/endpage/backhome', methods=['GET', 'POST'])
+def backhome():
+    return redirect(url_for('views.dashboard')) 

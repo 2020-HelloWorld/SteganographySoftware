@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Secret Output</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .output {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 50px;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+      }
+
+      h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #444;
+      }
+
+      .output-text {
+        width: 100%;
+        max-width: 800px;
+        height: 400px;
+        padding: 20px;
+        overflow: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #444;
+      }
+
+      .back-button {
+        background-color: #0072c6;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: #005da7;
+      }
+
+      /* Animations */
+
+      .container {
+        animation: fade-in 1s ease;
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .output-text {
+        animation: slide-in 1s ease;
+      }
+
+      @keyframes slide-in {
+        from {
+          transform: translateY(-100px);
+        }
+        to {
+          transform: translateY(0);
+        }
+      }
+
+      .back-button {
+        animation: pulse 1s ease infinite;
+      }
+
+      @keyframes pulse {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.2);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="output">
+        <h1>Your Secret Output:</h1>
+        <div class="output-text">
+          <p>{{ secret_output }}</p>
+        </div>
+        <a class="nav-item nav-link" id="backhome" href="backhome"><button class="back-button">Back to Home</button></a>
+      </div>
+    </div>
+  </body>
+</html>
