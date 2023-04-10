@@ -4,11 +4,11 @@ from os import path
 from pydub import AudioSegment
 
 def convert(infile,outfile):
+    # convert mp3 file to wav file
     sound = AudioSegment.from_mp3(infile)
     sound.export(outfile, format="wav")
 
 def embed(infile: str, message: str, outfile: str):
-    # convert mp3 file to wav file
     song = wave.open(infile, mode='rb')
     # Read frames and convert to byte array
     frame_bytes = bytearray(list(song.readframes(song.getnframes())))

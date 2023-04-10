@@ -64,11 +64,11 @@ def burstclient(SERVER_IP,secret):
             g += numOfPackets
 
             for p in range(numOfPackets):
-                time.sleep(0.2)
+                time.sleep(0.3)
 
                 client_socket.sendall(enc)
             print("No.of packets sent:", g)
-            time.sleep(6)
+            time.sleep(7)
 
             i = i+j
             print(i)
